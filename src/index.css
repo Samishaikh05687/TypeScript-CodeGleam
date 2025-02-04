@@ -1,0 +1,81 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-gray-950;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-500;
+}
+
+pre[class*="language-"] {
+  background: #000000;
+  color: #f8f8f2;
+  border-radius: 5px;
+  overflow-x: auto;
+}
+
+.line-numbers .line-numbers-rows {
+  padding-right: 2px;
+}
+
+.mac-window {
+  background: #000000; /* VS Code dark background */
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.mac-header {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  background: #2d2d2d; /* Header background */
+  border-bottom: 1px solid #1a1a1a;
+}
+
+.mac-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.mac-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.mac-button.close {
+  background: #ff5f56;
+}
+
+.mac-button.minimize {
+  background: #ffbd2e;
+}
+
+.mac-button.maximize {
+  background: #27c93f;
+}
+
+
+
