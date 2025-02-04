@@ -14,6 +14,7 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
+  display: none;
 }
 
 ::-webkit-scrollbar-track {
@@ -35,18 +36,48 @@ pre[class*="language-"] {
   overflow-x: auto;
 }
 
-.line-numbers .line-numbers-rows {
-  padding-right: 2px;
+.line-numbers {
+  display: flex;
+  align-items: flex-start; /* Align numbers properly */
+  
+ 
 }
+
+.line-numbers .line-numbers-rows {
+  width: 40px !important;
+  min-width: 40px;
+  text-align: right;
+  font-size: inherit !important;
+  line-height: inherit !important;
+  user-select: none;
+  padding-right: 10px;
+  opacity: 0.7; /* Slightly fade numbers */
+}
+.line-numbers-rows span {
+  display: block;
+}
+
 
 .mac-window {
   background: #000000; /* VS Code dark background */
   border-radius: 8px;
-  overflow: hidden;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  width: auto; /* Adjust width dynamically */
+  max-width: 100%; /* Prevent overflow */
+  min-width: 300px; /* Prevent it from being too small */
+  height: auto; /* Adjust height dynamically */
+  max-height: 90vh; /* Prevent it from taking too much space */
+ 
+  resize: both; 
 }
 
+.mac-content {
+  overflow: auto;
+  white-space: pre-wrap; /* Wrap text if needed */
+  padding-left: 10px;
+}
 .mac-header {
+  
   display: flex;
   align-items: center;
   padding: 6px;

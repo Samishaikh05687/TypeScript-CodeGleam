@@ -35,13 +35,42 @@ export function CodeEditor({ code, settings }: Props) {
           <div className="mac-button maximize"></div>
         </div>
       </div>
-      <div className="mac-content">
+
+      {/* Scrollable Container with Hidden Scrollbar */}
+      <div
+        className="mac-content"
+        style={{
+          maxHeight: "400px",     
+          overflow: "auto",
+          msOverflowStyle: "none", // Hides scrollbar in IE/Edge
+        }}
+      >
+    
+       
+
         <pre
           ref={preRef}
           className="line-numbers w-full overflow-auto font-mono"
-          style={{ fontSize: `${settings.fontSize}px` }}
+          style={{
+            fontSize:`${settings.fontSize}px`,
+            lineHeight: `${settings.fontSize * 1.5}px`,
+            minWidth: "300px",
+            whiteSpace: "pre-wrap",
+            wordBreak: "break-word",
+            overflowX: "auto",
+            padding: "10px",
+            margin: "0",
+          }}
         >
-          <code className={`language-${settings.language}`}>{code}</code>
+          <code
+            className={`language-${settings.language}`}
+            style={{
+              fontSize: `${settings.fontSize}px`,
+              display: "block",
+            }}
+          >
+            {code}
+          </code>
         </pre>
       </div>
     </div>

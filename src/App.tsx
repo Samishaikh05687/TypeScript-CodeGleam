@@ -1,11 +1,12 @@
 import { useState, useRef } from 'react';
-import { Terminal,Code2 } from 'lucide-react';
+import { Terminal } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
 import * as htmlToImage from 'html-to-image';
 import { CodeEditor } from './components/CodeEditor';
 import { Controls } from './components/Controls';
 import { Settings } from './components/Settings';
 import { CodeSettings, CodeTheme } from './types';
+import Theme from './components/Theme';
 
 const defaultTheme: CodeTheme = {
   name: 'Midnight Pro',
@@ -18,7 +19,7 @@ const defaultTheme: CodeTheme = {
 
 const defaultSettings: CodeSettings = {
   theme: defaultTheme,
-  fontSize: 20,
+  fontSize: 16,
   padding: 32,
   language: 'javascript',
   showBackground: true,
@@ -57,46 +58,45 @@ function App() {
 
   return (
     <div className={`min-h-screen ${settings.isDarkMode ? 'bg-black' : 'bg-white'} transition-colors duration-300`}>
-      <div className="container mx-auto px-4 py-8">
-        <header className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="relative">
+        <header className={`${settings.isDarkMode ? 'p-2 px-4 py-4' : 'bg-gray-300 p-2 px-4 py-4'} mb-8 `}>
+          <div className="flex items-center gap-3 justify-between">
+   
+            <div className=" items-center flex gap-2">
               <Terminal size={32} className={settings.isDarkMode ? 'text-white' : 'text-black'} />   
-            </div>
             <h1 className={settings.isDarkMode ? 'text-3xl text-white font-serif' : 'text-black text-3xl font-serif'}>
             CodeGleam
             </h1>
+            </div>
+            <Theme settings={settings} onSettingsChange={setSettings} />
           </div>
         </header>
+      <div className="container  px-4 ">
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
             {/* Input Section */}
 
-            <div className={`${settings.isDarkMode ? 'bg-[#333333]' : 'bg-slate-300'} backdrop-blur-sm p-6 rounded-lg border ${settings.isDarkMode ? 'border-gray-700/50' : 'border-gray-200'} transition-colors duration-300`}>
-              <div className="flex items-center gap-2 mb-4">
-                <Code2 size={20} className={settings.isDarkMode ? 'text-indigo-400' : 'text-indigo-600'} />
-                <h2 className={`text-xl font-semibold ${settings.isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`}>Input Code</h2>
-              </div>
+            
               <textarea
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 className={`w-full h-[200px] ${
-                  settings.isDarkMode ? 'bg-gray-900/50 text-gray-100' : 'bg-gray-50 text-gray-900'
+                  settings.isDarkMode ? 'bg-[#3d3d3d8a] text-gray-100' : 'bg-gray-50 text-gray-900'
                 } p-4 rounded-lg border ${
-                  settings.isDarkMode ? 'border-gray-700/50' : 'border-gray-200'
-                } focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 font-mono resize-none transition-colors duration-300`}
+                  settings.isDarkMode ? 'border-white' : 'border-purple-700'
+                }  focus:border-purple-500 focus:ring-1 focus:ring-purple-900  font-mono resize-none transition-all `}
                 placeholder="Paste or type your code here..."
                 spellCheck="false"
+               
               />
-            </div>
+           
 
             {/* Preview Section */}
-            <div className={`${settings.isDarkMode ? 'bg-gray-800/50' : 'bg-white'} backdrop-blur-sm p-6 rounded-lg border ${settings.isDarkMode ? 'border-gray-700/50' : 'border-gray-200'} transition-colors duration-300`}>
+            <div className={`${settings.isDarkMode ? 'bg-[#3d3d3d8a]' : 'bg-slate-200 border border-purple-700'} backdrop-blur-sm p-6 rounded-lg border ${settings.isDarkMode ? 'border-gray-700/50' : 'border-gray-200'} transition-colors duration-300`}>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
                   
-                  <h2 className={`text-xl font-semibold ${settings.isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>Preview</h2>
+                  <h2 className={`text-2xl font-semibold ${settings.isDarkMode ? 'text-purple-500' : 'text-black '}`}>Preview</h2>
                 </div>
                 <Controls
                   onCopy={handleCopy}
