@@ -44,18 +44,15 @@ pre[class*="language-"] {
 }
 
 .line-numbers .line-numbers-rows {
-  width: 40px !important;
-  min-width: 40px;
+  width: auto !important;
+  min-width: 30px;
   text-align: right;
-  font-size: inherit !important;
+  font-size: inherit !important; /* Ensure font size is inherited */
   line-height: inherit !important;
   user-select: none;
-  padding-right: 10px;
-  opacity: 0.7; /* Slightly fade numbers */
+  padding-left: 7px;
 }
-.line-numbers-rows span {
-  display: block;
-}
+
 
 
 .mac-window {

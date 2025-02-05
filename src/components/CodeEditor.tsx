@@ -58,8 +58,7 @@ export function CodeEditor({ code, settings }: Props) {
             whiteSpace: "pre-wrap",
             wordBreak: "break-word",
             overflowX: "auto",
-            padding: "10px",
-            margin: "0",
+           margin: 0,
           }}
         >
           <code
