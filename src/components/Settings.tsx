@@ -156,7 +156,7 @@ export function Settings({ settings, onSettingsChange }: Props) {
         <h2 className={`${settings.isDarkMode ? 'text-[#ad50d5]' : ' text-white'} text-2xl font-bold `}>Customize</h2>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-4 pb-1">
 
         <div className={`${settings.isDarkMode ? 'bg-black border border-white' : ' bg-white text-black border border-black'} flex items-center justify-between gap-4 px-4 py-3 rounded-full`}>
           <div className="flex items-center gap-2">
@@ -184,7 +184,7 @@ export function Settings({ settings, onSettingsChange }: Props) {
 
 
 
-        <div className="flex items-center gap-2 mb-3">
+        <div className="flex items-center gap-2 ">
           <Palette size={18} className={`${settings.isDarkMode ? 'text-[#ad50d5]' : ' text-white'}`} />
           <h3 className="text-xl font-medium">Theme</h3>
         </div>
