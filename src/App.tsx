@@ -1,7 +1,7 @@
-import { useState, useRef } from 'react';
+import { useState, useRef,useEffect } from 'react';
 import { Terminal } from 'lucide-react';
 import toast, { Toaster } from 'react-hot-toast';
-import * as htmlToImage from 'html-to-image';
+import  html2canvas from "html2canvas";
 import { CodeEditor } from './components/CodeEditor';
 import { Controls } from './components/Controls';
 import { Settings } from './components/Settings';
@@ -32,33 +32,70 @@ function App() {
   const [showSettings, setShowSettings] = useState(false);
   const codeRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const sharedCode = urlParams.get("code");
+    const sharedSettings = urlParams.get("settings");
+  
+    if (sharedCode) setCode(decodeURIComponent(sharedCode));
+    if (sharedSettings) {
+      try {
+        setSettings(JSON.parse(atob(sharedSettings))); // Decode Base64 before parsing
+      } catch (error) {
+        console.error("Invalid settings data:", error);
+      }
+    }
+  }, []);
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code);
     toast.success('Code copied to clipboard!');
   };
 
+  
+
   const handleDownload = async () => {
     if (codeRef.current) {
-      const dataUrl = await htmlToImage.toPng(codeRef.current);
-      const link = document.createElement('a');
-      link.download = 'code-snapshot.png';
-      link.href = dataUrl;
-      link.click();
-      toast.success('Image downloaded!');
+      try {
+        const canvas = await html2canvas(codeRef.current, {
+          backgroundColor: null, // Transparent background
+          scale: 2, // Higher quality image
+          useCORS: true, // Ensures external styles/fonts load
+      
+        });
+  
+        const dataUrl = canvas.toDataURL("image/png");
+        const link = document.createElement("a");
+        link.download = "code-snapshot.png";
+        link.href = dataUrl;
+        link.click();
+  
+        toast.success("Image downloaded successfully!");
+      } catch (error) {
+        console.error("Error generating image:", error);
+        toast.error("Failed to download image!");
+      }
     }
   };
+  
 
   const handleShare = () => {
-    const url = new URL(window.location.href);
-    url.searchParams.set('code', encodeURIComponent(code));
-    url.searchParams.set('settings', encodeURIComponent(JSON.stringify(settings)));
-    navigator.clipboard.writeText(url.toString());
-    toast.success('Share link copied to clipboard!');
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set('code', encodeURIComponent(code));
+      url.searchParams.set('settings', btoa(JSON.stringify(settings))); // Use Base64 encoding
+  
+      navigator.clipboard.writeText(url.toString());
+      toast.success('Share link copied to clipboard!');
+    } catch (error) {
+      console.error('Error generating share link:', error);
+      toast.error('Failed to generate share link.');
+    }
   };
+  
 
   return (
     <div className={`min-h-screen ${settings.isDarkMode ? 'bg-black' : 'bg-white'} transition-colors duration-300`}>
-        <header className={`${settings.isDarkMode ? 'p-2 px-4 py-4' : 'bg-gray-300 p-2 px-4 py-4'} mb-8 `}>
+        <header className={`${settings.isDarkMode ? 'p-2 px-4 py-4' : 'bg-gray-300 p-2 px-4 py-4'} mb-8  `}>
           <div className="flex items-center gap-3 justify-between">
    
             <div className=" items-center flex gap-2">

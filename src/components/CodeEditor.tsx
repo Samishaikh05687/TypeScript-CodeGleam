@@ -60,6 +60,7 @@ export function CodeEditor({ code, settings }: Props) {
             overflowX: "auto",
            margin: 0,
           }}
+          
         >
           <code
             className={`language-${settings.language}`}
